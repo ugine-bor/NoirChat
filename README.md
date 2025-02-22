@@ -1,11 +1,11 @@
 # NoirChat: Simple and Focused Communication
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/your-username/noirchat)
-[![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20%7C%20Docker-lightgrey.svg)](https://github.com/your-username/noirchat)
+[![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20%7C%20Docker-lightgrey.svg)](https://github.com/ugine-bor/NoirChat)
 
 **Welcome to NoirChat** - a minimalist and private web chat designed for straightforward and secure communication. It is lightweight, fast, and designed for easy deployment on your system, whether Windows, Linux, or within the anonymous I2P network.
 
-**Demo:** [Demo link later]
+**Demo:** noirchat.i2p
 
 ## Features
 
