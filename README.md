@@ -231,7 +231,7 @@ NoirChat is configured via environment variables, set in the `.env` file.
 
 ## Contact
 
-No contact ¯\_(ツ)_/¯
+No contact ¯\\\_(ツ)_/¯
 
 ---
 
