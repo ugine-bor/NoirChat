@@ -5,7 +5,7 @@
 
 **Welcome to NoirChat** - a minimalist and private web chat designed for straightforward and secure communication. It is lightweight, fast, and designed for easy deployment on your system, whether Windows, Linux, or within the anonymous I2P network.
 
-**Demo:** [Demo link here if available]
+**Demo:** [Demo link later]
 
 ## Features
 
@@ -41,8 +41,8 @@ Choose the version appropriate for your operating system:
 
 1. **Clone the repository:**
    ```bash
-   git clone [Your Repository URL]
-   cd noirchat
+   git clone https://github.com/ugine-bor/NoirChat.git
+   cd NoirChat
    ```
 
 2. **Create a Python virtual environment (recommended):**
@@ -72,7 +72,7 @@ Choose the version appropriate for your operating system:
    ```
 
 7. **Access NoirChat in a web browser:**
-    * Navigate to `http://localhost:[MAIN_PORT]` (default port is `5000` unless modified in `.env`).
+    * Navigate to `http://localhost:[MAIN_PORT]` (default port is `7654` unless modified in `.env`).
 
 #### `run.bat` for Windows
 
@@ -99,8 +99,8 @@ endlocal
 
 1. **Clone the repository:**
    ```bash
-   git clone [Your Repository URL]
-   cd noirchat
+   git clone https://github.com/ugine-bor/NoirChat.git
+   cd NoirChat
    ```
 
 2. **Create a Python virtual environment (recommended):**
@@ -131,7 +131,7 @@ endlocal
    ```
 
 7. **Access NoirChat in a web browser:**
-    * Navigate to `http://localhost:[MAIN_PORT]` (default port is `5000` unless modified in `.env`).
+    * Navigate to `http://localhost:[MAIN_PORT]` (default port is `7654` unless modified in `.env`).
 
 #### `run.sh` for Linux
 
@@ -211,7 +211,7 @@ NoirChat is configured via environment variables, set in the `.env` file.
 |------------------|----------------------------------------------------|--------------------------------------------------------------------|
 | `KEY`            | Flask secret key for token signing                 | `your_default_secret_key` (must be changed)                        |
 | `HOST`           | IP address to bind the server to                   | `0.0.0.0`                                                          |
-| `MAIN_PORT`      | Port for the web server and WebSocket              | `5000`                                                             |
+| `MAIN_PORT`      | Port for the web server and WebSocket              | `7654`                                                             |
 | `REDIS_HOST`     | Redis server hostname                              | `127.0.0.1`                                                        |
 | `REDIS_PORT`     | Redis server port                                  | `6379`                                                             |
 | `REDIS_PASS`     | Redis server password (if any)                     | `None`                                                             |
