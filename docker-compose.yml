@@ -1,0 +1,23 @@
+services:
+  web:
+    build: .
+    ports:
+      - "${MAIN_PORT}:${MAIN_PORT}"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - sqlite_data:/app/database
+    depends_on:
+      - redis
+  redis:
+    image: redis:alpine
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    volumes:
+      - redis_dump:/database
+      - ./Redis/redis_no_comments.conf:/usr/local/etc/redis/redis.conf
+volumes:
+  sqlite_data:
+  redis_dump:

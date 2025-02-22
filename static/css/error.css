@@ -1,0 +1,21 @@
+/* error page */
+
+@font-face {
+    font-family: 'Pixel';
+    src: url('../fonts/pixeloid/PixeloidSans.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    user-select: none;
+    text-align: center;
+    font-family: 'Pixel', sans-serif;
+    font-size: 64px;
+    background: #000;
+    color: #fff;
+    padding: 0px;
+    margin: 0 auto;
+    overflow: hidden;
+}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="icon" id="favicon" href="#">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <canvas id="faviconCanvas" width="16" height="16"></canvas>
+    <script nonce="{{ nonce }}" src="{{ url_for('static', filename='js/favicon_gen.js') }}"></script>
+    <a href="/chat">/chat</a>
+</body>
+</html>

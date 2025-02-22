@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NoirChat</title>
+
+    <link rel="icon" id="favicon" href="#">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+</head>
+<body>
+    <canvas id="faviconCanvas" width="16" height="16"></canvas>
+    <script nonce="{{ nonce }}" src="{{ url_for('static', filename='js/favicon_gen.js') }}"></script>
+
+    <textarea maxlength="{{ message_size }}" spellcheck="false" id="messageInput"></textarea>
+    <div id="messages"></div>
+
+    <script nonce="{{ nonce }}" src="{{ url_for('static', filename='js/socket.io.js') }}"></script>
+    <script nonce="{{ nonce }}" src="{{ url_for('static', filename='js/message_sender.js') }}"></script>
+
+    <script nonce="{{ nonce }}">
+
+    function decodeHtml(html) {
+      const txt = document.createElement("textarea");
+      txt.innerHTML = html;
+      return txt.value;
+    }
+
+    function msgs() {
+        return {{ messages | tojson }}
+    }
+
+    function add_message(msg) {
+        const div = document.createElement('div');
+        div.setAttribute('id', 'msg');
+        div.innerHTML = String(msg).replace(/\n/g, '<br>');
+        messagesDiv.append(div);
+    }
+
+    function deploy_from_database() {
+
+        msgs().forEach((msg_content) => {
+            console.log(
+            '%c' + decodeHtml(msg_content),
+            'color: inherit; /* ' + Math.random() + ' */'
+            ); // for cc
+            add_message(decodeHtml(msg_content));
+        });
+    }
+
+    deploy_from_database()
+    </script>
+    <script nonce="{{ nonce }}" src="{{ url_for('static', filename='js/input_height.js') }}"></script>
+    <script nonce="{{ nonce }}" src="{{ url_for('static', filename='js/better_scroll.js') }}"></script>
+</body>
+</html>
