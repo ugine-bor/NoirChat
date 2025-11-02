@@ -5,7 +5,7 @@
 
 **Welcome to NoirChat** - a minimalist and private web chat designed for straightforward and secure communication. It is lightweight, fast, and designed for easy deployment on your system, whether Windows, Linux, or within the anonymous I2P network.
 
-**Demo:** noirchat.i2p
+**Demo:** lain.i2p
 
 ## Features
 
