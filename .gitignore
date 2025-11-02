@@ -1,0 +1,5 @@
+.env
+.idea
+.venv
+/Redis/redis.conf
+/Redis/redis_no_comments.conf
