@@ -3,33 +3,37 @@
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/ugine-bor/NoirChat)
 [![Platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20%7C%20Docker-lightgrey.svg)](https://github.com/ugine-bor/NoirChat)
 
-**Welcome to NoirChat** - a minimalist and private web chat designed for straightforward and secure communication. It is lightweight, fast, and designed for easy deployment on your system, whether Windows, Linux, or within the anonymous I2P network.
+**Welcome to NoirChat** - a minimalist and private web chat designed for straightforward and secure communication using long polling. It is lightweight, fast, and designed for easy deployment on your system, whether Windows, Linux, or within the anonymous I2P network.
 
-**Demo:** lain.i2p
+**Technical Overview:** NoirChat uses long polling for real-time message delivery. The client polls the server for new messages, and the server holds the request for up to 25 seconds waiting for updates. This approach ensures reliable message delivery while maintaining simplicity and compatibility with I2P network.
+
+**Demo:** noirchat.i2p
 
 ## Features
 
-* **Real-time Instant Messaging:** Facilitates communication with minimal latency through WebSocket technology.
-* **Simplicity and Minimalism:** A clean interface focused solely on core communication functionalities.
-* **Privacy Focused:** Easily deployable on a private server or within I2P for enhanced privacy.
-* **Cross-Platform Compatibility:** Operates on Windows and Linux, with a specific version optimized for I2P.
-* **Configurable:** Settings are managed through environment variables (`.env`).
-* **Rate Limiting:** Integrated protection against spam and message flooding.
-* **Security Measures:** Implements CSP, X-Content-Type-Options, and X-Frame-Options headers for enhanced security.
-* **Message History:** Retains the most recent 100 messages.
-* **Adaptive Text Input:**  Input field height dynamically adjusts to text content.
-* **Favicon Generation:** Dynamically generated favicon.
+* **Real-time Messaging:** Uses long polling with 25-second timeouts for reliable message delivery.
+* **Message Storage:** SQLite database for message persistence, keeping last 100 messages.
+* **Rate Limiting:** Redis-based protection against spam and message flooding.
+* **Security Features:** 
+  - Content Security Policy (CSP)
+  - X-Content-Type-Options and X-Frame-Options
+  - httpOnly cookies with SameSite=Lax
+  - Token-based authentication
+* **Privacy Focused:** Easily deployable on a private server or within I2P network.
+* **Cross-Platform:** Works on Windows and Linux, with I2P network support.
+* **Minimalist Interface:** Clean, dark theme with adaptive text input.
+* **Mobile Support:** Optimized for both desktop and mobile browsers.
 
 ## Getting Started
 
 ### Prerequisites
 
-Before installation, ensure the following components are installed:
+Before installation, ensure you have:
 
 * **Python 3.x**
 * **pip** (Python package installer)
-* **Redis** (in-memory data structure store) - required for session management and rate limiting.
-* **Node.js and npm** (for `socket.io.js` if local installation is preferred).
+* **Redis** (for message queuing and rate limiting)
+* **SQLite3** (included with Python, used for message storage)
 
 ### Installation and Setup
 
@@ -202,26 +206,42 @@ python3 main.py
 * **Accessibility:** For other I2P users to access your chat, you need to configure I2P hosting and publicize
   your `.i2p` domain.
 
+## Technical Details
+
+The chat implements a robust real-time messaging system using long polling:
+
+1. **Message Delivery:**
+   - Client sends GET request to `/poll?since=<timestamp>`
+   - Server holds request for up to 25 seconds waiting for new messages
+   - Messages are delivered immediately when available
+   - Empty response after timeout if no new messages
+   - Client starts new polling request after each response
+
+2. **Storage:**
+   - Messages are stored in SQLite database
+   - Redis used for message queuing and rate limiting
+   - Last 100 messages kept in message history
+
+3. **Security:**
+   - Token-based authentication with signed tokens
+   - httpOnly cookies with SameSite=Lax
+   - Content Security Policy (CSP) headers
+   - X-Frame-Options: DENY
+   - X-Content-Type-Options: nosniff
+   - Rate limiting per user token
 
 ## Configuration
 
 NoirChat is configured via environment variables, set in the `.env` file.
 
-| Variable         | Description                                        | Default Value                                                      |
-|------------------|----------------------------------------------------|--------------------------------------------------------------------|
-| `KEY`            | Flask secret key for token signing                 | `your_default_secret_key` (must be changed)                        |
-| `HOST`           | IP address to bind the server to                   | `0.0.0.0`                                                          |
-| `MAIN_PORT`      | Port for the web server and WebSocket              | `7654`                                                             |
-| `REDIS_HOST`     | Redis server hostname                              | `127.0.0.1`                                                        |
-| `REDIS_PORT`     | Redis server port                                  | `6379`                                                             |
-| `REDIS_PASS`     | Redis server password (if any)                     | `None`                                                             |
-| `REDIS_SERVER`   | Path to the Redis server executable                | `redis-server`                                                     |
-| `REDIS_CONF`     | Path to the Redis server configuration file        | `redis.conf`                                                       |
-| `REDIS_DUMP`     | Filename for Redis database dump                   | `dump.rdb`                                                         |
-| `MESSAGE_SIZE`   | Maximum message size in characters                 | `500`                                                              |
-| `MESSAGE_EXPIRE` | Time-to-live for rate limits in Redis (in seconds) | `60`                                                               |
-| `COOKIE_LIFE`    | Token cookie expiration time (in seconds)          | `86400` (1 day)                                                    |
-| `RATE_LIMITS`    | JSON array for rate limiting rules                 | `[[60, 10], [300, 50]]` (10 messages per minute, 50 per 5 minutes) |
+| Variable         | Description                     | Default Value |
+|------------------|---------------------------------|---------------|
+| `MAIN_PORT`      | Flask application port          | 5000         |
+| `REDIS_PORT`     | Redis server port              | 6379         |
+| `MESSAGE_SIZE`   | Max message length in chars    | 2000         |
+| `MESSAGE_EXPIRE` | Rate limit time in seconds     | 1800         |
+| `COOKIE_LIFE`    | Cookie lifetime in seconds     | 2592000      |
+| `KEY`            | Flask secret key               | Must change! |
 
 **To modify configuration:**
 
