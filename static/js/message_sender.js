@@ -26,11 +26,15 @@ const socket = io.connect(`http://${i2pHost}:${i2pPort}`, {
 });
 
 document.getElementById('messageInput').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        if (!messageInput.value) return;
-        textarea.style.height = '35px';
-        sendMessage();
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (e.key === 'Enter') {
+        if (isMobile || !e.shiftKey) {
+            e.preventDefault();
+            if (messageInput.value.trim()) {
+                messageInput.style.height = '35px';
+                sendMessage();
+            }
+        }
     }
 });
 

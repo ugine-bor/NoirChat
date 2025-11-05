@@ -10,7 +10,7 @@
     <canvas id="faviconCanvas" width="16" height="16"></canvas>
     <script nonce="{{ nonce }}" src="{{ url_for('static', filename='js/favicon_gen.js') }}"></script>
 
-    <textarea maxlength="{{ message_size }}" spellcheck="false" id="messageInput"></textarea>
+    <textarea maxlength="{{ message_size }}" spellcheck="false" id="messageInput" enterkeyhint="send"></textarea>
     <div id="messages"></div>
 
     <script nonce="{{ nonce }}">

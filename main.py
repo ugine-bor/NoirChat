@@ -101,7 +101,9 @@ def chat():
     else:
         data = Redis.ratelimits.get(token)
         if data:
-            data = json.loads(data.decode('utf-8'))
+            if isinstance(data, bytes):
+                data = data.decode('utf-8')
+            data = json.loads(data)
             data['count'] += 1
             data['last'] = time.time()
         else:
