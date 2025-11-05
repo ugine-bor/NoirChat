@@ -1,5 +1,18 @@
+# Python env
+venv/
 .env
-.idea
-.venv
-/Redis/redis.conf
-/Redis/redis_no_comments.conf
+example.env
+
+# Editor/OS files
+*.pyc
+__pycache__/
+*.swp
+.DS_Store
+
+# App data / secrets / runtime
+database/
+.i2pd/
+Redis/
+logs/
+redis_dump.rdb
+*.sqlite
